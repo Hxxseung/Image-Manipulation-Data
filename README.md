@@ -34,7 +34,8 @@ data_manipulation/
 │   ├── ...
 │   └── ...
 ```
-![Generated images](./images/generated_images.png)
+![Alt text](<스크린샷 2026-09-17 17-00-02.png>)
+
 
 **변조 방법 스크립트**(예: `ResizeCrop.py`, `Flip.py`)는  
 `manipulation_method/` 폴더에 추가해주세요.
