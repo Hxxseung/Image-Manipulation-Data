@@ -9,7 +9,7 @@ import pandas as pd
 # ============================================================
 
 # 여기에 웹툰 97개 폴더가 들어있는 경로를 넣으세요.
-ROOT_DIR = Path(r"/home/juhyun/Desktop/web/data")
+ROOT_DIR = Path(__file__).resolve().parent
 
 # 결과 Excel 파일
 OUTPUT_XLSX = ROOT_DIR / "webtoon_mapping.csv"

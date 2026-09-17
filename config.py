@@ -5,21 +5,18 @@ from pathlib import Path
 # 기본 경로
 # ============================================================
 
-BASE_DIR = Path(
-    r"/home/juhyun/Desktop/web"
-)
+ROOT_DIR = Path(__file__).resolve().parent
 
 MAPPING_FILE = (
-    BASE_DIR
+    ROOT_DIR
     / "manipulation_mapping"
     / "webtoon_mapping.xlsx"
 )
 
 OUTPUT_ROOT = (
-    BASE_DIR
+    ROOT_DIR
     / "data_manipulation"
 )
-
 
 # ============================================================
 # 실행 설정
