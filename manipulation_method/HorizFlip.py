@@ -1,11 +1,16 @@
 from PIL import Image
 
 
-def HorizontalFLIP(image: Image.Image, level: int) -> Image.Image:
+def HorizFlip(
+    image: Image.Image,
+    level: int,
+    aux_image: Image.Image = None,
+    **kwargs
+) -> Image.Image:
     """
-    HorizontalFLIP 변조
+    HorizFlip 변조
 
-    level 1~4에 따라 좌우 반전(Horizontal Flip)을 적용한다.
+    level 1~4에 상관없이 좌우 반전(Horizontal Flip)을 적용한다.
 
     level 1: 좌우 반전 적용
     level 2: 좌우 반전 적용
@@ -13,9 +18,38 @@ def HorizontalFLIP(image: Image.Image, level: int) -> Image.Image:
     level 4: 좌우 반전 적용
     """
 
-    if level not in {1, 2, 3, 4}:
-        raise ValueError("level은 1~4 중 하나여야 합니다.")
+    # ========================================================
+    # 입력 확인
+    # ========================================================
 
-    flipped = image.transpose(Image.FLIP_LEFT_RIGHT)
+    if level not in {
+        1,
+        2,
+        3,
+        4
+    }:
 
-    return flipped
+        raise ValueError(
+            "level은 1~4 중 하나여야 합니다."
+        )
+
+
+    # ========================================================
+    # Target 이미지 준비
+    # ========================================================
+
+    target = image.convert(
+        "RGB"
+    )
+
+
+    # ========================================================
+    # Horizontal Flip 적용
+    # ========================================================
+
+    result = target.transpose(
+        Image.FLIP_LEFT_RIGHT
+    )
+
+
+    return result
