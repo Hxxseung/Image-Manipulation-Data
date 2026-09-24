@@ -1,7 +1,7 @@
 from PIL import Image, ImageOps
 
 
-def Padding(image: Image.Image, level: int) -> Image.Image:
+def Padding(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     Padding 변조
 

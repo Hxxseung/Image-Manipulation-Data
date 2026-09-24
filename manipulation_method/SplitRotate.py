@@ -1,7 +1,7 @@
 from PIL import Image
 
 
-def SplitRotate(image: Image.Image, level: int) -> Image.Image:
+def SplitRotate(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     SplitRotate 변조
 

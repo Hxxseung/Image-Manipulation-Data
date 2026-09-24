@@ -3,7 +3,7 @@ import random
 from PIL import Image
 
 
-def Swirl(image: Image.Image, level: int) -> Image.Image:
+def Swirl(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     Swirl 변조
 

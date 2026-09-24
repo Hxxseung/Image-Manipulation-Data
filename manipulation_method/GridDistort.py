@@ -1,7 +1,7 @@
 from PIL import Image
 
 
-def GridDistort(image: Image.Image, level: int) -> Image.Image:
+def GridDistort(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     GridDistort 변조
 

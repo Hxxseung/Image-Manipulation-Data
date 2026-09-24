@@ -1,7 +1,7 @@
 from PIL import Image
 
 
-def Crop(image: Image.Image, level: int) -> Image.Image:
+def Crop(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     Crop 변조
 

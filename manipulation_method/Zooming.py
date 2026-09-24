@@ -1,7 +1,7 @@
 from PIL import Image, ImageOps
 
 
-def Zooming(image: Image.Image, level: int) -> Image.Image:
+def Zooming(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     Zooming 변조
 

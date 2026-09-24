@@ -2,7 +2,7 @@ import math
 from PIL import Image, ImageDraw
 
 
-def Shape(image: Image.Image, level: int) -> Image.Image:
+def Shape(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     Shape 변조
 

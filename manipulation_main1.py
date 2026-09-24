@@ -1,6 +1,6 @@
 from config import MANIPULATIONS
 from mapping_loader import load_cut_mapping
-from runner import run_manipulations
+from runner1 import run_manipulations
 
 
 def main():
@@ -17,3 +17,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# Main execution code
+# Change the runner file version in import according to the situation and run it

@@ -2,7 +2,7 @@ from PIL import Image
 import math
 
 
-def Skew(image: Image.Image, level: int) -> Image.Image:
+def Skew(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     Skew 변조
 

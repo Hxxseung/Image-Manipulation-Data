@@ -2,7 +2,7 @@ from PIL import Image
 import math
 
 
-def PolarWarp(image: Image.Image, level: int) -> Image.Image:
+def PolarWarp(image: Image.Image, level: int, aux_image: Image.Image = None, **kwargs) -> Image.Image:
     """
     PolarWarp 변조
 
