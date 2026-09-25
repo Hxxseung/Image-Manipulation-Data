@@ -8,33 +8,33 @@ from config import (
     NUM_VARIANTS
 )
 
-from manipulation_method.ResizeCrop import ResizeCrop
-from manipulation_method.CopyMove import CopyMove
-from manipulation_method.BGChange import BGChange
-from manipulation_method.Splicing import Splicing
-
+# from manipulation_method.ResizeCrop import ResizeCrop
+# from manipulation_method.Skew import Skew
+# from manipulation_method.Swirl import Swirl
 
 # ============================================================
 # 변조 함수 Registry
 # ============================================================
 
 MANIPULATION_REGISTRY = {
-
-    "CopyMove": {
-        "func": CopyMove,
-        "requires_aux": False,
-    },
-    "Splicing": {
-        "func": Splicing,
-        "requires_aux": True,
-    },
-
-
-    "BGChange": {
-        "func": BGChange,
-        "requires_aux": True,
-    },
-
+    
+    # Example:
+    # "ResizeCrop": {
+    #     "func": ResizeCrop,
+    #     "requires_aux": False,
+    # },
+    # "Skew": {
+    #     "func": Skew,
+    #     "requires_aux": False,
+    # },
+    # "Swirl": {
+    #     "func": Swirl,
+    #     "requires_aux": True
+    # }
+    
+    # You need to change the MAANIPULATIONS list in config.py to include the names of the manipulations you want to run.
+    # If you want to add more manipulations, you can add them to this registry in the same format as above.
+    
 }
 
 
@@ -96,17 +96,28 @@ def run_single_manipulation(
         manipulation_config["requires_aux"]
     )
 
-
     output_dir = (
         OUTPUT_ROOT
         / manipulation_name
     )
 
+    # 기본 Output 루트 디렉토리 생성
     output_dir.mkdir(
         parents=True,
         exist_ok=True
     )
 
+    # --------------------------------------------
+    # 레벨별 / origin 디렉토리 사전 생성
+    # --------------------------------------------
+    origin_dir = output_dir / "origin"
+    origin_dir.mkdir(parents=True, exist_ok=True)
+
+    level_dirs = {}
+    for level in range(1, NUM_VARIANTS + 1):
+        lv_dir = output_dir / f"lv{level}"
+        lv_dir.mkdir(parents=True, exist_ok=True)
+        level_dirs[level] = lv_dir
 
     print()
     print("=" * 60)
@@ -116,18 +127,15 @@ def run_single_manipulation(
     )
     print("=" * 60)
 
-
     total_images = len(
         mapping_df
     )
-
 
     # --------------------------------------------
     # 재현 가능한 랜덤 선택
     # --------------------------------------------
 
     rng = random.Random(42)
-
 
     for index, row in enumerate(
         mapping_df.itertuples(index=False),
@@ -142,7 +150,6 @@ def run_single_manipulation(
             row.Final_Base_Name
         )
 
-
         try:
 
             # --------------------------------------------
@@ -156,7 +163,6 @@ def run_single_manipulation(
                     f"{image_path}"
                 )
 
-
             # --------------------------------------------
             # 이미지 읽기
             # --------------------------------------------
@@ -169,13 +175,12 @@ def run_single_manipulation(
                     "RGB"
                 )
 
-
                 # ----------------------------------------
-                # 원본 저장
+                # 원본 저장 (origin 폴더 하위)
                 # ----------------------------------------
 
                 origin_path = (
-                    output_dir
+                    origin_dir
                     / f"{base_name}_origin.png"
                 )
 
@@ -183,13 +188,11 @@ def run_single_manipulation(
                     origin_path
                 )
 
-
                 # ----------------------------------------
                 # aux image 준비
                 # ----------------------------------------
 
                 aux_image = None
-
 
                 if requires_aux:
 
@@ -210,9 +213,8 @@ def run_single_manipulation(
                             .copy()
                         )
 
-
                 # ----------------------------------------
-                # 변조본 생성
+                # 변조본 생성 및 레벨별 폴더 저장
                 # ----------------------------------------
 
                 for level in range(
@@ -228,20 +230,18 @@ def run_single_manipulation(
                         )
                     )
 
-
+                    # 각 level별 폴더 내부로 저장 경로 변경
                     output_path = (
-                        output_dir
+                        level_dirs[level]
                         / (
                             f"{base_name}_"
                             f"lv{level}.png"
                         )
                     )
 
-
                     transformed.save(
                         output_path
                     )
-
 
         except Exception as e:
 
@@ -258,7 +258,6 @@ def run_single_manipulation(
             print(
                 f"Reason: {e}"
             )
-
 
         # --------------------------------------------
         # 진행 상황 출력
@@ -290,7 +289,6 @@ def run_manipulations(
         exist_ok=True
     )
 
-
     for manipulation_name in (
         manipulation_names
     ):
@@ -308,20 +306,17 @@ def run_manipulations(
 
             continue
 
-
         manipulation_config = (
             MANIPULATION_REGISTRY[
                 manipulation_name
             ]
         )
 
-
         run_single_manipulation(
             manipulation_name,
             manipulation_config,
             mapping_df
         )
-
 
     print()
     print("=" * 60)

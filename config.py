@@ -34,5 +34,5 @@ NUM_VARIANTS = 4
 
 # 실행할 변조 기법
 MANIPULATIONS = [
-    "ResizeCrop",
+    # "ResizeCrop","Skew","Swirl"
 ]
